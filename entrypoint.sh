@@ -21,8 +21,6 @@ then
   echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
   CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG)
 fi
-echo "$CAPTURE_OUTPUT"
-echo "::set-output name=result::$CAPTURE_OUTPUT"
 
 if [ $? -eq 1 ]
 then
@@ -30,6 +28,8 @@ then
   echo "$GITLEAKS_RESULT"
   echo "::set-output name=exitcode::$GITLEAKS_RESULT"
   echo "----------------------------------"
+  echo "$CAPTURE_OUTPUT"
+  echo "::set-output name=result::$CAPTURE_OUTPUT"
   echo -e $DONATE_MSG
   exit 1
 else
